@@ -1,0 +1,101 @@
+.CodeMirror {
+	background: white;
+	line-height: 1em;
+	font-family: courier new;
+	font-size: 10pt;
+}
+
+.CodeMirror-scroll {
+	overflow: auto;
+	height: 300px;
+	/* This is needed to prevent an IE[67] bug where the scrolled content is visible outside of the scrolling box. */
+	position: relative;
+}
+
+.CodeMirror-gutter {
+	position: absolute; left: 0; top: 0;
+	background-color: #f7f7f7;
+	border-right: 1px solid #eee;
+	min-width: 2em;
+	height: 100%;
+}
+.CodeMirror-gutter-text {
+	color: #aaa;
+	text-align: right;
+	padding: .4em .2em .4em .4em;
+}
+.CodeMirror-lines {
+	padding: .4em;
+}
+
+.CodeMirror pre {
+	-moz-border-radius: 0;
+	-webkit-border-radius: 0;
+	-o-border-radius: 0;
+	border-radius: 0;
+	border-width: 0; margin: 0; padding: 0; background: transparent;
+	font-family: courier new;
+	font-size: 10pt;
+	padding: 0; margin: 0;
+	white-space: pre;
+	word-wrap: normal;
+}
+
+.CodeMirror-lines span {
+	font-family: courier new;
+	font-size: 10pt;
+}
+
+.CodeMirror textarea {
+	font-family: inherit !important;
+	font-size: inherit !important;
+}
+
+.CodeMirror-cursor {
+	z-index: 10;
+	position: absolute;
+	visibility: hidden;
+	border-left: 1px solid black !important;
+}
+.CodeMirror-focused .CodeMirror-cursor {
+	visibility: visible;
+}
+
+span.CodeMirror-selected {
+	background: #ccc !important;
+	color: HighlightText !important;
+}
+.CodeMirror-focused span.CodeMirror-selected {
+	background: Highlight !important;
+}
+
+.CodeMirror-matchingbracket {color: #0f0 !important;}
+.CodeMirror-nonmatchingbracket {color: #f22 !important;}
+
+
+/* =========== mysql related ===================== */
+.cm-s-default { background: #272822; color: #F8F8F2; }
+.cm-s-default span.CodeMirror-selected { background: #FFE792 !important; }
+.cm-s-default .CodeMirror-gutter { background: #272822; border-right: 0px; }
+.cm-s-default .CodeMirror-gutter-text { color: #d0d0d0; }
+.cm-s-default .CodeMirror-cursor { border-left: 1px solid #F8F8F0 !important; }
+
+.cm-s-default span.cm-comment { color: #75715E; }
+.cm-s-default span.cm-atom { color: #AE81FF; }
+.cm-s-default span.cm-number { color: #AE81FF; }
+
+.cm-s-default span.cm-property, .cm-s-default span.cm-attribute {color: #A6E22E;}
+.cm-s-default span.cm-keyword { color: #F92672; }
+.cm-s-default span.cm-string { color: #E6DB74; }
+
+.cm-s-default span.cm-variable {color: #A6E22E;}
+.cm-s-default span.cm-variable-2 { color: #9effff; }
+.cm-s-default span.cm-def { color: #FD971F; }
+.cm-s-default span.cm-error { background: #F92672; color: #F8F8F0; }
+.cm-s-default span.cm-bracket { color: #f8F8F2; }
+.cm-s-default span.cm-tag {color: #F92672;}
+
+.CodeMirror-matchingbracket{
+	text-decoration: underline;
+	color: white !important;
+}
