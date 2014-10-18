@@ -8,8 +8,8 @@ class Shopware_Controllers_Backend_DatabaseManagement extends Enlight_Controller
     public function indexAction()
     {
         $userId = Shopware()->Auth()->getIdentity()->id;
-        $sessionId = Shopware()->Db()->fetchOne('SELECT sessionID FROM s_core_auth WHERE id=?',array($userId));
-        header('Location: http://'.$this->getBasePath().'/engine/Shopware/Plugins/Community/Backend/DatabaseManagement/Components/mywebsql/?sessionId=' . $sessionId);
+        $apiKey = Shopware()->Db()->fetchOne('SELECT apiKey FROM s_core_auth WHERE id=?',array($userId));
+        header('Location: http://'.$this->getBasePath().'/engine/Shopware/Plugins/Community/Backend/DatabaseManagement/Components/mywebsql/?apiKey=' . $apiKey);
         die();
     }
 

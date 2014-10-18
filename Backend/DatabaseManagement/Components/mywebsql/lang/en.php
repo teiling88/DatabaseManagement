@@ -361,6 +361,8 @@
 		'Record Editing' => "Record Editing",
 		'Exclude Table type' => "Exclude Table type",
 		'Exclude Table Character set' => "Exclude Table Character set",
+		'Backup filename' => "Backup filename",
+		'Invalid filename format' => "Invalid filename format",
 
 	);
 	

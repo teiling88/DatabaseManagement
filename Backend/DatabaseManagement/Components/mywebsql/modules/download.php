@@ -4,7 +4,7 @@
  *
  * @file:      modules/download.php
  * @author     Samnan ur Rehman
- * @copyright  (c) 2008-2012 Samnan ur Rehman
+ * @copyright  (c) 2008-2014 Samnan ur Rehman
  * @web        http://mywebsql.net
  * @license    http://mywebsql.net/license
  */
@@ -20,17 +20,22 @@
 			case 'backup': {
 				include_once(BASE_PATH . "/config/backups.php");
 				$compression = v($_REQUEST['compression']);
-				$file = get_backup_filename( $compression );
-				include_once(BASE_PATH . "/lib/output.php");
-				$output = new Output( $file, $compression );
-				$message = '<div class="message ui-state-highlight">'.__('Database backup successfully created').'</div>';
-				if ( $output->is_valid() ) {
-					downloadDatabase($db, false);
-					$output->end();
+				$filename = v($_REQUEST['filename']);
+				$file = get_backup_filename( $compression, $filename );
+				if ( $file ) {
+					include_once(BASE_PATH . "/lib/output.php");
+					$output = new Output( $file, $compression );
+					$message = '<div class="message ui-state-highlight">'.__('Database backup successfully created').'</div>';
+					if ( $output->is_valid() ) {
+						downloadDatabase($db, false);
+						$output->end();
+					} else {
+						$message = '<div class="message ui-state-error">'.__('Failed to create database backup').'</div>';
+					}
 				} else {
-					$message = '<div class="error ui-state-highlight">'.__('Failed to create database backup').'</div>';
+					$message = '<div class="message ui-state-error">'.__('Invalid filename format').'</div>';
 				}
-				echo view( 'backup', array( 'MESSAGE' => $message ), $db->getObjectList() );
+				echo view( 'backup', array( 'MESSAGE' => $message, 'FILENAME' => htmlspecialchars($filename) ), $db->getObjectList() );
 			} break;
 			case 'exportres': {
 				downloadResults($db);
@@ -70,9 +75,9 @@
 
 		$exporter = new DataExport($db, $type);
 		$exporter->sendDownloadHeader($filename);
-		echo $db->addExportHeader( Session::get('select', 'query'), 'query' );
+		echo $db->addExportHeader( Session::get('select', 'query'), 'query', $type );
 		$exporter->exportTable(Session::get('select', 'query'), $options);
-		echo $db->addExportFooter();
+		echo $db->addExportFooter( $type );
 	}
 
 	function downloadTable(&$db, $table) {
@@ -98,9 +103,9 @@
 		$sql = "select * from ". $db->quote($table);
 		$exporter = new DataExport($db, $type);
 		$exporter->sendDownloadHeader($table);
-		echo $db->addExportHeader( $table, 'table' );
+		echo $db->addExportHeader( $table, 'table', $type );
 		$exporter->exportTable($sql, $options);
-		echo $db->addExportFooter();
+		echo $db->addExportFooter( $type );
 	}
 
 
@@ -116,7 +121,7 @@
 		if ( $headers )
 			$exporter->sendDownloadHeader( Session::get('db', 'name') );
 
-		echo $db->addExportHeader( Session::get('db', 'name') );
+		echo $db->addExportHeader( Session::get('db', 'name'), 'db', 'insert' );
 
 		$export_type = v($_REQUEST["exptype"]);
 		if (is_array($_POST["tables"]) && count($_POST["tables"]) > 0)	{
@@ -228,27 +233,6 @@
 		if (isset($matches[1]))
 			$statement = str_replace($matches[1], "", $statement);
 		return $statement;
-	}
-
-	function get_backup_filename( $compression ) {
-		$file = BACKUP_FOLDER;
-		$search = array(
-			'<db>',
-			'<date>',
-			'<ext>'
-		);
-		$replace = array(
-			Session::get('db', 'name'),
-			date( BACKUP_DATE_FORMAT ),
-			'.sql'
-		);
-
-		$file .= str_replace( $search, $replace, BACKUP_FILENAME_FORMAT );
-
-		if ( $compression != '' )
-			$file .= $compression == 'bz' ? '.bz2' : '.gz';
-
-		return $file;
 	}
 	
 	// flattens table names by combining schema and table name together (if required)

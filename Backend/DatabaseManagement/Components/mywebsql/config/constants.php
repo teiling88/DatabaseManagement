@@ -4,7 +4,7 @@
  *
  * @file:      config/constants.php
  * @author     Samnan ur Rehman
- * @copyright  (c) 2008-2012 Samnan ur Rehman
+ * @copyright  (c) 2008-2014 Samnan ur Rehman
  * @web        http://mywebsql.net
  * @license    http://mywebsql.net/license
  */
@@ -12,13 +12,15 @@
 	// You should not change anything below unless you know what you are doing!
 	define("EXTERNAL_PATH", defined('MYWEBSQL_COMPACT_DIST') ? $_SERVER["SCRIPT_NAME"] : str_replace(basename($_SERVER["SCRIPT_NAME"]), "", $_SERVER["SCRIPT_NAME"]));
 
-	define('APP_VERSION', '3.4');
+	define('APP_VERSION', '3.5');
 	define('PROJECT_SITEURL', 'http://mywebsql.net');
 	define("DEVELOPER_EMAIL", "support@mywebsql.net");
 	define("COOKIE_LIFETIME", 1440);	// in hours
 
 	// below is required to adjust for serverside php configuration changes
 	ini_set("display_errors", "off");
+	ini_set('zlib.output_compression', 'On');
+	ini_set('output_buffering', 'Off');
 
 	if (!function_exists('v'))
 	{

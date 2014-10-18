@@ -5,7 +5,7 @@
  *
  * @file:      config/auth.php
  * @author     Samnan ur Rehman
- * @copyright  (c) 2008-2012 Samnan ur Rehman
+ * @copyright  (c) 2008-2014 Samnan ur Rehman
  * @web        http://mywebsql.net
  * @license    http://mywebsql.net/license
  * 
@@ -20,7 +20,7 @@
 	// BASIC   = browser requests authentication dialog
 	// LOGIN   = User enters userid and password manually
 	// CUSTOM  = Use a custom authentication scheme (see docs for details)
-	define('AUTH_TYPE', 'LOGIN');
+	define('AUTH_TYPE', 'CUSTOM');
 
 	// if either of the required extensions are available, secure login will be available
 	$secure_login_available = (extension_loaded('openssl') && extension_loaded('gmp')) || extension_loaded('bcmath');

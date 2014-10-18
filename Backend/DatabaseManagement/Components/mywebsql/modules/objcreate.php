@@ -4,7 +4,7 @@
  *
  * @file:      modules/objcreate.php
  * @author     Samnan ur Rehman
- * @copyright  (c) 2008-2012 Samnan ur Rehman
+ * @copyright  (c) 2008-2014 Samnan ur Rehman
  * @web        http://mywebsql.net
  * @license    http://mywebsql.net/license
  */
@@ -27,15 +27,15 @@
 			$msg = __('Any existing object with the same name should be dropped manually before executing the creation command')
 				.'!<br />'
 				.__('Enter command for object creation');
-		displayCreateObjectForm($msg, $type, $refresh);
+		displayCreateObjectForm($db, $msg, $type, $refresh);
 	}
 
-	function displayCreateObjectForm($msg, $type, $refresh) {
+	function displayCreateObjectForm(&$db, $msg, $type, $refresh) {
 		$id = $_REQUEST["id"];
 		if (isset($_REQUEST["objinfo"]))
 			$objInfo = htmlspecialchars($_REQUEST["objinfo"]);
 		else
-			$objInfo = getObjectCreateCommand($id);
+			$objInfo = getObjectCreateCommand($db, $id);
 		print "</textarea></td></tr>";
 
 		$min = file_exists('js/min/minify.txt');
@@ -55,8 +55,8 @@
 		echo view('objcreate', $replace);
 	}
 
-	function getObjectCreateCommand($id) {
-		$folder = Session::get('db', 'driver') . '/templates';
+	function getObjectCreateCommand(&$db, $id) {
+		$folder = $db->name() . '/templates';
 
 		$x = '';
 		switch($id) {

@@ -3,7 +3,7 @@
  *
  * @file:      js/query.js
  * @author     Samnan ur Rehman
- * @copyright  (c) 2008-2012 Samnan ur Rehman
+ * @copyright  (c) 2008-2014 Samnan ur Rehman
  * @web        http://mywebsql.net
  * @license    http://mywebsql.net/license
  */
@@ -289,7 +289,7 @@ function transferInfoMessage() {
 	}
 
 	if ($('#infoTable').length > 0)
-		setupTable('infoTable', {highlight:true,selectable:true,editable:false,sortable:true});
+		setupTable('infoTable', {highlight:true,selectable:true,editable:false,sortable:'inline'});
 
 	setPageStatus(false);
 	showNavBtns('query', 'queryall');
@@ -490,6 +490,10 @@ function postSortTable() {
 
 function goPage(num) {
 	wrkfrmSubmit("query", "table", num, editTableName);
+}
+
+function goSort(field) {
+	wrkfrmSubmit("query", "sort", field, '');
 }
 
 $.fn.html2txt = function() {

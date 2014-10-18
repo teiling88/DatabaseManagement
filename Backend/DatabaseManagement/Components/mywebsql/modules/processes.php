@@ -4,7 +4,7 @@
  *
  * @file:      modules/processes.php
  * @author     Samnan ur Rehman
- * @copyright  (c) 2008-2012 Samnan ur Rehman
+ * @copyright  (c) 2008-2014 Samnan ur Rehman
  * @web        http://mywebsql.net
  * @license    http://mywebsql.net/license
  */
@@ -65,7 +65,7 @@
 			print "<script type=\"text/javascript\" language='javascript'>
 				window.title = \"".__('Process Manager')."\";
 				$('#btn_kill').button().click(function() { document.frmquery.submit(); });
-				setupTable('processes', {sortable:true, highlight:true, selectable:true});
+				setupTable('processes', {sortable:'inline', highlight:true, selectable:true});
 			</script>";
 		}
 		else

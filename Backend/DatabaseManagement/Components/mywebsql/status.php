@@ -4,7 +4,7 @@
  *
  * @file:      status.php
  * @author     Samnan ur Rehman
- * @copyright  (c) 2008-2012 Samnan ur Rehman
+ * @copyright  (c) 2008-2014 Samnan ur Rehman
  * @web        http://mywebsql.net
  * @license    http://mywebsql.net/license
  */
@@ -13,10 +13,11 @@
 		$files = scandir(BASE_PATH . "/config/");
 		foreach ($files as $config) {
 			$_cfn = BASE_PATH.'/mywebsql_config/'. basename($config);
-			if (file_exists($cfn) {
+			if (file_exists($cfn)) {
 				Phar::mount('config/'.basename($config), $_cfn);
 			}
 		}
+    }
 
 
 	define('BASE_PATH', dirname(__FILE__));

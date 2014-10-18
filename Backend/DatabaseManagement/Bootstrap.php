@@ -35,7 +35,7 @@ class Shopware_Plugins_Backend_DatabaseManagement_Bootstrap extends Shopware_Com
      */
     public function getVersion()
     {
-        return '1.0.0';
+        return '1.1.0';
     }
 
     /**

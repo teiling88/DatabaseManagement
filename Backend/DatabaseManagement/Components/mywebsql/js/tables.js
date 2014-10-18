@@ -3,7 +3,7 @@
  *
  * @file:      js/tables.js
  * @author     Samnan ur Rehman
- * @copyright  (c) 2008-2012 Samnan ur Rehman
+ * @copyright  (c) 2008-2014 Samnan ur Rehman
  * @web        http://mywebsql.net
  * @license    http://mywebsql.net/license
  */
@@ -31,7 +31,21 @@ function setupTable(id, opt) {
 	if (!opt.editEvent) opt.editEvent = 'dblclick';
 	if (!opt.editFunc) opt.editFunc = editTableCell;
 
-	if (opt.sortable) {
+	if (opt.sortable == true) {
+		$('#'+id+' thead th').live('click', function() {
+			// only sort if there is more than one row
+			if ( $('#'+id+' tbody tr').length > 2 ) {
+				if ($(this).attr('class').match(/tch|th_nosort/)) {
+					return true;
+				}
+				var sort_column = $(this).index();
+				if (editTableName && editTableName != '') {
+					sort_column--;
+				}
+				goSort(sort_column);
+			}
+		});
+	} else if (opt.sortable == 'inline') {
 		sorttable.DATE_RE = /^(\d\d?)[\/\.-](\d\d?)[\/\.-]((\d\d)?\d\d)$/;
 		table = document.getElementById(id);
 		sorttable.makeSortable(table);

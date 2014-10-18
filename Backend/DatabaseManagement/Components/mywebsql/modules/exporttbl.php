@@ -4,7 +4,7 @@
  *
  * @file:      modules/exporttbl.php
  * @author     Samnan ur Rehman
- * @copyright  (c) 2008-2012 Samnan ur Rehman
+ * @copyright  (c) 2008-2014 Samnan ur Rehman
  * @web        http://mywebsql.net
  * @license    http://mywebsql.net/license
  */
@@ -12,7 +12,7 @@
 	function processRequest(&$db) {
 		$tableName = v($_REQUEST['table']);
 		if ($tableName) {
-			$replace = array('TABLENAME' => $tableName);
+			$replace = array('TABLENAME' => htmlspecialchars($tableName));
 			echo view('exporttbl', $replace);
 		}
 		else

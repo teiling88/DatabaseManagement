@@ -4,19 +4,19 @@
  *
  * @file:      modules/databases.php
  * @author     Samnan ur Rehman
- * @copyright  (c) 2008-2012 Samnan ur Rehman
+ * @copyright  (c) 2008-2014 Samnan ur Rehman
  * @web        http://mywebsql.net
  * @license    http://mywebsql.net/license
  */
 
 	function processRequest(&$db) {
-		$folder = Session::get('db', 'driver');
-		
+		$folder = $db->name();
+
 		$data = array();
-		
+
 		if (v($_REQUEST["id"]) == 'batch') {
 			$stats = array();
-			
+
 			$stats['drop'] = drop_objects( $db );
 
 			$replace = array();
@@ -33,16 +33,16 @@
 	function drop_objects( &$db ) {
 		$status = array('success' => 0, 'errors' => 0);
 		$types = $db->getObjectTypes();
-		
+
 		foreach(v($_POST['databases'], array()) as $database) {
 			if ( v($_POST['dropcmd']) == "on" ) {
 				if ($db->dropObject($database, 'database'))
 					$status['success']++;
 				else
 					$status['errors']++;
-			} 
+			}
 		}
-		
+
 		return $status;
 	}
 

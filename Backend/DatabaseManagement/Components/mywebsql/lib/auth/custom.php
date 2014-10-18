@@ -19,24 +19,17 @@ class MyWebSQL_Auth_Custom
         /*
          * $server = array(0 => <<display name of server>>, 1 => <<Server information array>>)
          */
-        $sessionId = $_GET['sessionId'];
+        $apiKey = $_GET['apiKey'];
         $includeDir = realpath(getcwd() . '/../../../../../../../../');
         $dbConfig = include($includeDir . '/config.php');
         set_include_path($includeDir . '/engine/Library/');
         include($includeDir . '/engine/Library/Zend/Db.php');
         $db = Zend_Db::factory('Pdo_Mysql', $dbConfig['db']);
 
-        $data = $db->fetchOne('SELECT `data` FROM s_core_sessions_backend WHERE id = ? AND (modified + expiry) > ?', array($sessionId, time()));
-        $parts = explode('Shopware|', $data);
-        $data = unserialize($parts[1]);
+        $data = $db->fetchOne('SELECT id FROM s_core_auth WHERE apiKey = ? AND active = ? AND roleID = ?', array($apiKey, 1, 1));
 
-        if ($data['Auth']->roleID == 1) {
-            $check = true;
-        } else {
-            $check = false;
-        }
         // CHANGE THE FOLLOWING FOR PROPER AUTHENTICATION BEHAVIOUR */
-        if ($check === true) {
+        if ($data > 0) {
 
             $includeDir = realpath(getcwd() . '/../../../../../../../../');
             $dbConfig = include($includeDir . '/config.php');
